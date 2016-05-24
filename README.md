@@ -1,19 +1,31 @@
-# gulp-file-insert [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
+# gulp-baker
+
+Bake assets to an output file using token replacement
+
+## Why Baker?
+
+Based on gulp-file-insert but works directly on the file buffers without converting up to strings, to ensure baked content is identical to the content read from disk.
+
+This avoids conversion/encoding/RegEx issues where file content can break gulp-file-insert (e.g. large complex scripts) and works on any asset type without worrying about the file content.
+
+The Baker API is backwards compatible to gulp-file-insert with the only change being that duplicate tokens are ignored (files are only baked once).
+
+Additional API options can added to handle different asset types in future, e.g. baking images as base64 in an html file.
 
 ## Usage
 
-First, install `gulp-file-insert` as a development dependency:
+First, install `gulp-baker` as a development dependency:
 
 ```shell
-npm install --save-dev gulp-file-insert
+npm install --save-dev gulp-baker
 ```
 
 
 ```javascript
-var gfi = require("gulp-file-insert");
+var baker = require("gulp-baker");
 
 gulp.src('./sample.js')
-  .pipe(gfi({
+  .pipe(baker({
     "/* file 1 */": "tmp/file1",
     "/* file 2 */": "tmp/file2",
     version: "tmp/version_number"
@@ -27,6 +39,7 @@ This will replace into sample.js the tag "/\* file 1 \*/" by the content of the 
 (MIT License)
 
 Copyright (c) 2014 Jean-Baptiste DEMONTE <jbdemonte@gmail.com>
+Copyright (c) 2016 Andy Freer <andy@dash.org>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -48,7 +61,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-[npm-url]: https://npmjs.org/package/gulp-file-insert
+[npm-url]: https://npmjs.org/package/gulp-baker
 [npm-image]: https://badge.fury.io/js/gulp-file-insert.png
 
 [travis-url]: http://travis-ci.org/jbdemonte/gulp-file-insert

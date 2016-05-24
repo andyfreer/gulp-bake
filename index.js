@@ -4,7 +4,7 @@ var through = require("through"),
   PluginError = gutil.PluginError,
   fs = require("fs"),
   File = gutil.File,
-  ns = "gulp-file-insert";
+  ns = "gulp-baker";
 
 module.exports = function (options) {
   if (typeof options !== "object") {
@@ -29,20 +29,15 @@ module.exports = function (options) {
     }
   }
 
-  function escapeRegExp(string) {
-    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-  }
-
   function end () {
-    var self = this,
-      content = file.contents.toString();
+    var self = this;
 
     function finalize() {
       var newFile = new File({
         cwd: file.cwd,
         base: file.base,
         path: file.path,
-        contents: new Buffer(content)
+        contents: file.contents
       });
       self.emit("data", newFile);
       self.emit("end");
@@ -51,11 +46,30 @@ module.exports = function (options) {
     function next() {
       var key = keys.shift();
       if (key) {
+        // load the input-file to a buffer
         fs.readFile(options[key], function (err, data) {
           if (err) {
-            self.emit('error', new gutil.PluginError(ns, "file (" + options[key] + ") is missing for tag (" + key + ")"));
+            self.emit('error', new gutil.PluginError(ns,  ns + " FILE NOT FOUND: [" + options[key] + "] for token [" + key + "]"));
           } else {
-            content = content.replace(new RegExp(escapeRegExp(key), "g"), data);
+            // search for the start index of the token in the source-file buffer..
+            var tokenStart = file.contents.indexOf(key);
+
+            if (tokenStart < 0) {
+              self.emit('error', new gutil.PluginError(ns, ns + " TOKEN NOT FOUND: [" + key + "] in file [" + options[key] + "]"));
+            } else {
+
+              // split the source-file into head and tail buffers for
+              // content before and after the token
+              var tailStart = tokenStart + key.length;
+              var buffHead = new Buffer(tokenStart).fill(' ');
+              var buffTail = new Buffer(file.contents.length - tailStart).fill('*');
+              //console.log('token start [%s], source len: [%s], tail start [%s], tail len: [%s]', tokenStart, file.contents.length, tailStart, buffTail.length);
+              file.contents.copy(buffHead, 0, 0, tokenStart);
+              file.contents.copy(buffTail, 0, tokenStart + key.length, file.contents.length);
+
+              // rebuild the source-file buffer with the input-file buffer inserted between the head and tail
+              file.contents = Buffer.concat([buffHead, data, buffTail]);
+            }
           }
           next();
         });
@@ -63,7 +77,6 @@ module.exports = function (options) {
         finalize();
       }
     }
-
     next();
   }
 

@@ -1,16 +1,16 @@
 # gulp-baker
 
-Bake assets to an output file using token replacement
+Bake assets to an output file using token replacement in Gulp
 
 ## Why Baker?
 
-Based on gulp-file-insert but works directly on the file buffers without converting up to strings, to ensure baked content is identical to the content read from disk.
+Based on gulp-file-insert but works directly on the file buffers without converting up to strings, to ensure inserted content is identical to the content read from disk.
 
 This avoids conversion/encoding/RegEx issues where file content can break gulp-file-insert (e.g. large complex scripts) and works on any asset type without worrying about the file content.
 
 The Baker API is backwards compatible to gulp-file-insert with the only change being that duplicate tokens are ignored (files are only baked once).
 
-Additional API options can added to handle different asset types in future, e.g. baking images as base64 in an html file.
+Additional API options can be added to handle different asset types in future, e.g. baking images as base64 in an html file.
 
 ## Usage
 
@@ -39,6 +39,7 @@ This will replace into sample.js the tag "/\* file 1 \*/" by the content of the 
 (MIT License)
 
 Copyright (c) 2014 Jean-Baptiste DEMONTE <jbdemonte@gmail.com>
+
 Copyright (c) 2016 Andy Freer <andy@dash.org>
 
 Permission is hereby granted, free of charge, to any person obtaining

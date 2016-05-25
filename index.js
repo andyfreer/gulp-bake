@@ -63,7 +63,6 @@ module.exports = function (options) {
               var tailStart = tokenStart + key.length;
               var buffHead = new Buffer(tokenStart).fill(' ');
               var buffTail = new Buffer(file.contents.length - tailStart).fill('*');
-              //console.log('token start [%s], source len: [%s], tail start [%s], tail len: [%s]', tokenStart, file.contents.length, tailStart, buffTail.length);
               file.contents.copy(buffHead, 0, 0, tokenStart);
               file.contents.copy(buffTail, 0, tokenStart + key.length, file.contents.length);
 

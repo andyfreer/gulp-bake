@@ -4,7 +4,7 @@ var through = require("through"),
   PluginError = gutil.PluginError,
   fs = require("fs"),
   File = gutil.File,
-  ns = "gulp-baker";
+  ns = "gulp-bake";
 
 module.exports = function (options) {
   if (typeof options !== "object") {

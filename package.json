@@ -1,11 +1,11 @@
 {
-  "name": "gulp-baker",
+  "name": "gulp-bake",
   "description": "Bake assets to an output file using token replacement",
   "version": "1.0.0",
-  "homepage": "https://github.com/andyfreer/gulp-baker",
+  "homepage": "https://github.com/andyfreer/gulp-bake",
   "repository": {
     "type": "git",
-    "url": "git://github.com/andyfreer/gulp-baker.git"
+    "url": "git://github.com/andyfreer/gulp-bake.git"
   },
   "authors": [
     {
@@ -16,7 +16,7 @@
     {
       "name": "Andy Freer",
       "email": "andy@dash.org",
-      "url": "http://dash.org"
+      "url": "https://dash.org"
     }
   ],
   "main": "./index.js",

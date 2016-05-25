@@ -1,4 +1,4 @@
-var baker = require("../"),
+var bake = require("../"),
   should = require("should"),
   gutil = require('gulp-util'),
   fs = require('fs');
@@ -15,14 +15,14 @@ var makeFile = function (path) {
   });
 };
 
-describe("gulp-baker", function() {
+describe("gulp-bake", function() {
 
   it('should produce correct file output when including files', function (done) {
 
     var expectedFile = makeFile('test/files/expected/AE');
     var srcFile = makeFile('test/files/data/AE');
 
-    var stream = baker({
+    var stream = bake({
       "/* INS1 */": "test/files/data/B",
       tag2: "test/files/data/D"
     });
@@ -49,7 +49,7 @@ describe("gulp-baker", function() {
     var expectedFile = makeFile('test/files/expected/AE');
     var srcFile = makeFile('test/files/data/AE');
 
-    var stream = baker({
+    var stream = bake({
       "/* INS1 */": "test/files/data/missing",
       tag2: "test/files/data/D"
     });

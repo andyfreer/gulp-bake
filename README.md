@@ -1,31 +1,31 @@
-# gulp-baker
+# gulp-bake
 
 Bake assets to an output file using token replacement in Gulp
 
-## Why Baker?
+## Why bake?
 
 Based on gulp-file-insert but works directly on the file buffers without converting up to strings, to ensure inserted content is identical to the content read from disk.
 
 This avoids conversion/encoding/RegEx issues where file content can break gulp-file-insert (e.g. large complex scripts) and works on any asset type without worrying about the file content.
 
-The Baker API is backwards compatible to gulp-file-insert with the only change being that duplicate tokens are ignored (files are only baked once).
+The gulp-bake API is backwards compatible to gulp-file-insert with the only change being that duplicate tokens are ignored (files are only baked once).
 
 Additional API options can be added to handle different asset types in future, e.g. baking images as base64 in an html file.
 
 ## Usage
 
-First, install `gulp-baker` as a development dependency:
+First, install `gulp-bake` as a development dependency:
 
 ```shell
-npm install --save-dev gulp-baker
+npm install --save-dev gulp-bake
 ```
 
 
 ```javascript
-var baker = require("gulp-baker");
+var bake = require("gulp-bake");
 
 gulp.src('./sample.js')
-  .pipe(baker({
+  .pipe(bake({
     "/* file 1 */": "tmp/file1",
     "/* file 2 */": "tmp/file2",
     version: "tmp/version_number"
@@ -62,11 +62,5 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-[npm-url]: https://npmjs.org/package/gulp-baker
-[npm-image]: https://badge.fury.io/js/gulp-file-insert.png
-
-[travis-url]: http://travis-ci.org/jbdemonte/gulp-file-insert
-[travis-image]: https://secure.travis-ci.org/jbdemonte/gulp-file-insert.png?branch=master
-
-[depstat-url]: https://david-dm.org/jbdemonte/gulp-file-insert
-[depstat-image]: https://david-dm.org/jbdemonte/gulp-file-insert.png
+[npm-url]: https://npmjs.org/package/gulp-bake
+[npm-image]: https://badge.fury.io/js/gulp-bake.png
